@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: gastroFlowBE
+  datasource:
+    url: jdbc:mysql://localhost:3306/gastro_flow
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  error:
+    include-message: ALWAYS
+    include-binding-errors: ALWAYS
