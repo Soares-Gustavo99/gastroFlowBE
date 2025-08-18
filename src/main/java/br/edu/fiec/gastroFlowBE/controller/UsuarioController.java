@@ -20,12 +20,17 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
+    // ********** METODOS POST ************
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public void createUsuario(@RequestBody UsuarioDTO usuarioDTO){
-
         usuarioService.createUsuario(usuarioDTO);
     }
+
+
+    // ********** METODOS GET ************
+
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(produces = APPLICATION_JSON_VALUE)
@@ -34,16 +39,29 @@ public class UsuarioController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public UsuarioDTO getByEmail(@RequestParam String email){
+        return usuarioService.getByEmail(email);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "usuarios", produces = APPLICATION_JSON_VALUE)
     public List<UsuarioDTO> findALl(){
         return usuarioService.findAll();
     }
+
+
+    // ********** METODOS PATCH ************
+
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(consumes= APPLICATION_JSON_VALUE)
     public void updateUsuarioById(@RequestParam Integer id, @RequestBody UsuarioDTO usuarioDTO){
         usuarioService.updateUsuarioById(id, usuarioDTO);
     }
+
+    // ********** METODOS DELETE ************
+
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping()

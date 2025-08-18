@@ -44,6 +44,18 @@ public class UsuarioService {
         ).orElse(null);
     }
 
+    // Metodo para retornar um usuario pelo email especifico
+    public UsuarioDTO getByEmail(String email){
+        return usuarioRepository.findByEmail(email).map(value ->
+                new UsuarioDTO(
+                        value.getNome(),
+                        value.getEmail(),
+                        value.getNivel_acesso(),
+                        value.getSenha()
+                )
+        ).orElse(null);
+    }
+
     // Metodo para retorar os usuarios
     public List<UsuarioDTO> findAll(){
         return usuarioRepository.findAll().stream()
