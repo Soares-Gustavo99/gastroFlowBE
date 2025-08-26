@@ -18,6 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "usuario")
 public class UsuarioController {
 
+//Alteração
     private final UsuarioService usuarioService;
 
     // ********** METODOS POST ************

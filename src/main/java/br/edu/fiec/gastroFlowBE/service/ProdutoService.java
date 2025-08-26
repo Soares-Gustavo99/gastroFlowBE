@@ -1,0 +1,89 @@
+package br.edu.fiec.gastroFlowBE.service;
+
+import br.edu.fiec.gastroFlowBE.model.dto.ProdutoDTO;
+import br.edu.fiec.gastroFlowBE.model.entity.Produto;
+import br.edu.fiec.gastroFlowBE.repository.ProdutoRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@AllArgsConstructor
+public class ProdutoService {
+
+    private final ProdutoRepository produtoRepository;
+
+    // Criar Produto
+    public void createProduto(ProdutoDTO produtoDTO) {
+        Produto produto = new Produto(
+                null,
+                produtoDTO.getNome(),
+                produtoDTO.getCategoria(),
+                produtoDTO.getQuantidadeEstoque(),
+                produtoDTO.getUnidadeMedida(),
+                produtoDTO.getValidade(),
+                null // a lista de receitas será setada pelo ReceitaService
+        );
+
+        produtoRepository.save(produto);
+    }
+
+    // Buscar Produto por ID
+    public ProdutoDTO getById(Long id) {
+        return produtoRepository.findById(id).map(produto ->
+                new ProdutoDTO(
+                        produto.getNome(),
+                        produto.getCategoria(),
+                        produto.getQuantidadeEstoque(),
+                        produto.getUnidadeMedida(),
+                        produto.getValidade()
+                )
+        ).orElse(null);
+    }
+
+    public List<ProdutoDTO> getAllByNome(String nome) {
+        return produtoRepository.findAllByNome(nome).stream()
+                .map(produto -> new ProdutoDTO(
+                        produto.getNome(),
+                        produto.getCategoria(),
+                        produto.getQuantidadeEstoque(),
+                        produto.getUnidadeMedida(),
+                        produto.getValidade()
+                ))
+                .toList();
+    }
+
+    // Listar todos os produtos
+    public List<ProdutoDTO> findAll() {
+        return produtoRepository.findAll().stream()
+                .map(produto -> new ProdutoDTO(
+                        produto.getNome(),
+                        produto.getCategoria(),
+                        produto.getQuantidadeEstoque(),
+                        produto.getUnidadeMedida(),
+                        produto.getValidade()
+                ))
+                .toList();
+    }
+
+    // Atualizar Produto por ID
+    public boolean updateProdutoById(Long id, ProdutoDTO produtoDTO) {
+        return produtoRepository.findById(id).map(produto -> {
+            produto.setNome(produtoDTO.getNome());
+            produto.setCategoria(produtoDTO.getCategoria());
+            produto.setQuantidadeEstoque(produtoDTO.getQuantidadeEstoque());
+            produto.setUnidadeMedida(produtoDTO.getUnidadeMedida());
+            produto.setValidade(produtoDTO.getValidade());
+
+            produtoRepository.save(produto);
+            return true;
+        }).orElse(false);
+    }
+
+    // Deletar Produto por ID
+    public void deleteProdutoById(Long id) {
+        produtoRepository.deleteById(id);
+    }
+}
+
