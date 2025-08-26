@@ -26,7 +26,7 @@ public class ProdutoController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ProdutoDTO getById(@RequestParam Integer id){
+    public ProdutoDTO getById(@RequestParam Long id){
         return produtoService.getById(id);
     }
 
@@ -44,13 +44,13 @@ public class ProdutoController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(consumes = APPLICATION_JSON_VALUE)
-    public void updateProdutoById(@RequestParam Integer id, @RequestBody ProdutoDTO produtoDTO){
+    public void updateProdutoById(@RequestParam Long id, @RequestBody ProdutoDTO produtoDTO){
         produtoService.updateProdutoById(id, produtoDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping()
-    public void deleteClienteById(@RequestParam Integer id){
+    public void deleteClienteById(@RequestParam Long id){
         produtoService.deleteProdutoById(id);
     }
 }

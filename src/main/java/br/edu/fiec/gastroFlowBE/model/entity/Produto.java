@@ -18,7 +18,7 @@ public class Produto {
 
     @Id
     @GeneratedValue
-    private Integer Id;
+    private Long Id;
 
     @Column(nullable = false)
     private String nome;
@@ -34,6 +34,10 @@ public class Produto {
 
     @Column(nullable = false)
     private Date validade;
+
+    @ManyToMany(mappedBy = "produtos")
+    private List<Receita> receitas = new ArrayList<>();
+
 
 
     public Produto (String nome, String categoria, Integer quantidadeEstoque, String unidadeMedida, Date validade) {
